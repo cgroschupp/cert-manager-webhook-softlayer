@@ -85,7 +85,7 @@ func (c *softlayerDNSProviderSolver) Name() string {
 func (c *softlayerDNSProviderSolver) provider(cfg *softlayerDNSProviderConfig, namespace string) (*session.Session, error) {
 	sec, err := c.client.CoreV1().Secrets(namespace).Get(cfg.APIKeySecretRef.LocalObjectReference.Name, metav1.GetOptions{})
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("unable to get secret: %v", err)
 	}
 
 	secBytes, ok := sec.Data[cfg.APIKeySecretRef.Key]
