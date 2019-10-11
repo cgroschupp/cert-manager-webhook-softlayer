@@ -84,6 +84,7 @@ func (c *softlayerDNSProviderSolver) Name() string {
 
 func (c *softlayerDNSProviderSolver) provider(cfg *softlayerDNSProviderConfig, namespace string) (*session.Session, error) {
 	sec, err := c.client.CoreV1().Secrets(namespace).Get(cfg.APIKeySecretRef.LocalObjectReference.Name, metav1.GetOptions{})
+	klog.Infof("config: %v", cfg)
 	if err != nil {
 		return nil, fmt.Errorf("unable to get secret: %v", err)
 	}
@@ -223,6 +224,7 @@ func loadConfig(cfgJSON *extapi.JSON) (softlayerDNSProviderConfig, error) {
 	if err := json.Unmarshal(cfgJSON.Raw, &cfg); err != nil {
 		return cfg, fmt.Errorf("error decoding solver config: %v", err)
 	}
+	klog.Infof("config: %v", cfg)
 
 	return cfg, nil
 }
