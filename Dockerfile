@@ -26,4 +26,4 @@ COPY --from=build /workspace/webhook /usr/local/bin/webhook
 
 EXPOSE 40000
 
-ENTRYPOINT ["dlv", "--listen=:40000", "--headless=true", "--api-version=2", "exec", "/usr/local/bin/webhook"]
+ENTRYPOINT ["dlv", "--listen=:40000", "--headless=true", "--api-version=2", "exec", "/usr/local/bin/webhook", "--"]
