@@ -216,6 +216,7 @@ func (c *softlayerDNSProviderSolver) Initialize(kubeClientConfig *rest.Config, s
 // loadConfig is a small helper function that decodes JSON configuration into
 // the typed config struct.
 func loadConfig(cfgJSON *extapi.JSON) (softlayerDNSProviderConfig, error) {
+	klog.Infof("raw config: %v", cfgJSON.String())
 	cfg := softlayerDNSProviderConfig{}
 	// handle the 'base case' where no configuration has been provided
 	if cfgJSON == nil {
@@ -224,8 +225,6 @@ func loadConfig(cfgJSON *extapi.JSON) (softlayerDNSProviderConfig, error) {
 	if err := json.Unmarshal(cfgJSON.Raw, &cfg); err != nil {
 		return cfg, fmt.Errorf("error decoding solver config: %v", err)
 	}
-	klog.Infof("config: %v", cfg)
-
 	return cfg, nil
 }
 
